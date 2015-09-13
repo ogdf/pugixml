@@ -11,6 +11,8 @@
  * Copyright (C) 2003, by Kristen Wegner (kristen@tima.net)
  */
 
+#pragma once
+
 #ifndef PUGIXML_VERSION
 // Define version macro; evaluates to major * 100 + minor so that it's safe to use in less-than comparisons
 #	define PUGIXML_VERSION 160
@@ -18,9 +20,6 @@
 
 // Include user configuration file (this can define various configuration macros)
 #include "pugiconfig.h"
-
-#ifndef HEADER_PUGIXML_HPP
-#define HEADER_PUGIXML_HPP
 
 // Include stddef.h for size_t and ptrdiff_t
 #include <stddef.h>
@@ -1329,8 +1328,6 @@ namespace std
 	std::bidirectional_iterator_tag PUGIXML_FUNCTION __iterator_category(const pugi::xml_attribute_iterator&);
 	std::bidirectional_iterator_tag PUGIXML_FUNCTION __iterator_category(const pugi::xml_named_node_iterator&);
 }
-#endif
-
 #endif
 
 // Make sure implementation is included in header-only mode
