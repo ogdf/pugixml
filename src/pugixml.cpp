@@ -11849,12 +11849,12 @@ namespace pugi
 	}
 
 #if __cplusplus >= 201103
-	PUGI__FN xpath_node_set::xpath_node_set(xpath_node_set&& rhs): _type(type_unsorted), _begin(&_storage), _end(&_storage)
+	PUGI__FN xpath_node_set::xpath_node_set(xpath_node_set&& rhs) noexcept: _type(type_unsorted), _begin(&_storage), _end(&_storage)
 	{
 		_move(rhs);
 	}
 
-	PUGI__FN xpath_node_set& xpath_node_set::operator=(xpath_node_set&& rhs)
+	PUGI__FN xpath_node_set& xpath_node_set::operator=(xpath_node_set&& rhs) noexcept
 	{
 		if (this == &rhs) return *this;
 
@@ -12049,7 +12049,7 @@ namespace pugi
 	}
 
 #if __cplusplus >= 201103
-	PUGI__FN xpath_variable_set::xpath_variable_set(xpath_variable_set&& rhs)
+	PUGI__FN xpath_variable_set::xpath_variable_set(xpath_variable_set&& rhs) noexcept
 	{
 		for (size_t i = 0; i < sizeof(_data) / sizeof(_data[0]); ++i)
 		{
@@ -12058,7 +12058,7 @@ namespace pugi
 		}
 	}
 
-	PUGI__FN xpath_variable_set& xpath_variable_set::operator=(xpath_variable_set&& rhs)
+	PUGI__FN xpath_variable_set& xpath_variable_set::operator=(xpath_variable_set&& rhs) noexcept
 	{
 		for (size_t i = 0; i < sizeof(_data) / sizeof(_data[0]); ++i)
 		{
@@ -12243,7 +12243,7 @@ namespace pugi
 	}
 
 #if __cplusplus >= 201103
-	PUGI__FN xpath_query::xpath_query(xpath_query&& rhs)
+	PUGI__FN xpath_query::xpath_query(xpath_query&& rhs) noexcept
 	{
 		_impl = rhs._impl;
 		_result = rhs._result;
@@ -12251,7 +12251,7 @@ namespace pugi
 		rhs._result = xpath_parse_result();
 	}
 
-	PUGI__FN xpath_query& xpath_query::operator=(xpath_query&& rhs)
+	PUGI__FN xpath_query& xpath_query::operator=(xpath_query&& rhs) noexcept
 	{
 		if (this == &rhs) return *this;
 

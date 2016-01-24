@@ -1106,8 +1106,8 @@ namespace pugi
 
 	#if __cplusplus >= 201103
 		// Move semantics support
-		xpath_variable_set(xpath_variable_set&& rhs);
-		xpath_variable_set& operator=(xpath_variable_set&& rhs);
+		xpath_variable_set(xpath_variable_set&& rhs) noexcept;
+		xpath_variable_set& operator=(xpath_variable_set&& rhs) noexcept;
 	#endif
 
 		// Add a new variable or get the existing one, if the types match
@@ -1150,8 +1150,8 @@ namespace pugi
 
 	#if __cplusplus >= 201103
 		// Move semantics support
-		xpath_query(xpath_query&& rhs);
-		xpath_query& operator=(xpath_query&& rhs);
+		xpath_query(xpath_query&& rhs) noexcept;
+		xpath_query& operator=(xpath_query&& rhs) noexcept;
 	#endif
 
 		// Get query expression return type
@@ -1291,8 +1291,8 @@ namespace pugi
 
 	#if __cplusplus >= 201103
 		// Move semantics support
-		xpath_node_set(xpath_node_set&& rhs);
-		xpath_node_set& operator=(xpath_node_set&& rhs);
+		xpath_node_set(xpath_node_set&& rhs) noexcept;
+		xpath_node_set& operator=(xpath_node_set&& rhs) noexcept;
 	#endif
 
 		// Get collection type
