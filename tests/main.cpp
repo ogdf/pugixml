@@ -18,7 +18,7 @@
 #   include <windows.h>
 #endif
 
-test_runner* test_runner::_tests = 0;
+test_runner* test_runner::_tests = nullptr;
 size_t test_runner::_memory_fail_threshold = 0;
 bool test_runner::_memory_fail_triggered = false;
 jmp_buf test_runner::_failure_buffer;
@@ -36,7 +36,7 @@ static void* custom_allocate(size_t size)
 		g_memory_fail_triggered = true;
 		test_runner::_memory_fail_triggered = true;
 
-		return 0;
+		return nullptr;
 	}
 	else
 	{
@@ -183,7 +183,7 @@ int main(int, char** argv)
 	unsigned int total = 0;
 	unsigned int passed = 0;
 
-	test_runner* test = 0; // gcc3 "variable might be used uninitialized in this function" bug workaround
+	test_runner* test = nullptr; // gcc3 "variable might be used uninitialized in this function" bug workaround
 
 	for (test = test_runner::_tests; test; test = test->_next)
 	{

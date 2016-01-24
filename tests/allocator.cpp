@@ -11,6 +11,10 @@
 #	define ADDRESS_SANITIZER defined(__SANITIZE_ADDRESS__)
 #endif
 
+#ifndef nullptr
+#	define nullptr NULL
+#endif
+
 // Low-level allocation functions
 #if defined(_WIN32) || defined(_WIN64)
 #	ifdef __MWERKS__
@@ -18,9 +22,9 @@
 #		pragma cpp_extensions on // enable some extensions to include windows.h
 #	endif
 
-#   if defined(_MSC_VER)
-#       pragma warning(disable: 4201) // nonstandard extension used: nameless struct/union
-#   endif
+#	if defined(_MSC_VER)
+#		pragma warning(disable: 4201) // nonstandard extension used: nameless struct/union
+#	endif
 
 #	ifdef _XBOX_VER
 #		define NOD3D
@@ -98,7 +102,7 @@ namespace
 		size_t aligned_size = align_to_page(size);
 
 		void* ptr = allocate_page_aligned(aligned_size + page_size);
-		if (!ptr) return 0;
+		if (!ptr) return nullptr;
 
 		char* end = static_cast<char*>(ptr) + aligned_size;
 
@@ -143,7 +147,7 @@ const size_t memory_alignment = sizeof(double) > sizeof(void*) ? sizeof(double) 
 void* memory_allocate(size_t size)
 {
 	void* result = allocate(size + memory_alignment);
-	if (!result) return 0;
+	if (!result) return nullptr;
 
 	memcpy(result, &size, sizeof(size_t));
 

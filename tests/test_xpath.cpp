@@ -378,7 +378,7 @@ TEST(xpath_out_of_memory_evaluate_concat)
 
 	pugi::xpath_query q(query.c_str());
 
-	CHECK_ALLOC_FAIL(CHECK(q.evaluate_string(0, 0, xml_node()) == 1));
+	CHECK_ALLOC_FAIL(CHECK(q.evaluate_string(nullptr, 0, xml_node()) == 1));
 }
 
 TEST(xpath_out_of_memory_evaluate_substring)
@@ -392,7 +392,7 @@ TEST(xpath_out_of_memory_evaluate_substring)
 
 	pugi::xpath_query q(query.c_str());
 
-	CHECK_ALLOC_FAIL(CHECK(q.evaluate_string(0, 0, xml_node()) == 1));
+	CHECK_ALLOC_FAIL(CHECK(q.evaluate_string(nullptr, 0, xml_node()) == 1));
 }
 
 TEST_XML(xpath_out_of_memory_evaluate_union, "<node><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/><a/></node>")
@@ -422,7 +422,7 @@ TEST(xpath_memory_concat_massive)
 		node.append_child(STR("c")).text().set(i % 10);
 
 	pugi::xpath_query q(STR("/"));
-	size_t size = q.evaluate_string(0, 0, node);
+	size_t size = q.evaluate_string(nullptr, 0, node);
 
 	CHECK(size == 5001);
 }

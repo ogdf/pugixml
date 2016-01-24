@@ -309,7 +309,7 @@ TEST(xpath_parse_result_default)
 	xpath_parse_result result;
 
 	CHECK(!result);
-	CHECK(result.error != 0);
+	CHECK(result.error != nullptr);
 	CHECK(result.offset == 0);
 }
 

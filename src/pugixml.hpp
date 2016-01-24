@@ -81,6 +81,10 @@
 #	define PUGIXML_CHAR char
 #endif
 
+#ifndef nullptr
+#	define nullptr NULL
+#endif
+
 namespace pugi
 {
 	// Character type used for all internal storage and operations; depends on PUGIXML_WCHAR_MODE
