@@ -1,4 +1,4 @@
-pugixml [![Build Status](https://travis-ci.org/zeux/pugixml.png?branch=master)](https://travis-ci.org/zeux/pugixml)
+pugixml
 =======
 
 pugixml is a C++ XML processing library, which consists of a DOM-like interface with rich traversal/modification
@@ -7,6 +7,11 @@ implementation for complex data-driven tree queries. Full Unicode support is als
 variants and conversions between different Unicode encodings (which happen automatically during parsing/saving).
 
 pugixml is used by a lot of projects, both open-source and proprietary, for performance and easy-to-use interface.
+
+Please note that
+[this repository](https://github.com/ogdf/pugixml) is a fork of the
+[original pugixml repository](https://github.com/zeux/pugixml).
+The fork is used within the [Open Graph Drawing Framework](http://ogdf.net).
 
 ## Documentation
 
