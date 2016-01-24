@@ -3,8 +3,9 @@ MAKEFLAGS+=-r
 
 config=debug
 defines=standard
+cxxstd=default
 
-BUILD=build/make-$(CXX)-$(config)-$(defines)
+BUILD=build/make-$(CXX)-$(config)-$(defines)-$(cxxstd)
 
 SOURCES=src/pugixml.cpp $(filter-out tests/fuzz_%,$(wildcard tests/*.cpp))
 EXECUTABLE=$(BUILD)/test
@@ -47,9 +48,8 @@ ifneq ($(findstring PUGIXML_NO_EXCEPTIONS,$(defines)),)
 	CXXFLAGS+=-fno-exceptions
 endif
 
-ifeq ($(findstring PUGIXML_NO_CXX11,$(defines)),)
-	# Can't use std=c++11 since Travis-CI has gcc 4.6.3
-	CXXFLAGS+=-std=c++0x
+ifneq ($(cxxstd),default)
+	CXXFLAGS+=-std=$(cxxstd)
 endif
 
 OBJECTS=$(SOURCES:%=$(BUILD)/%.o)
