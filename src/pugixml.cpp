@@ -1584,10 +1584,8 @@ PUGI__NS_BEGIN
 			return result + 1;
 		}
 
-		static value_type high(value_type result, uint32_t ch)
+		static value_type high(value_type result, uint32_t)
 		{
-			(void)ch;
-
 			*result = '?';
 
 			return result + 1;
@@ -4954,8 +4952,8 @@ namespace pugi
 
 	PUGI__FN void xml_writer_file::write(const void* data, size_t size)
 	{
-		size_t result = fwrite(data, 1, size, static_cast<FILE*>(file));
-		(void)!result; // unfortunately we can't do proper error handling here
+		fwrite(data, 1, size, static_cast<FILE*>(file));
+		// unfortunately we can't do proper error handling here
 	}
 
 #ifndef PUGIXML_NO_STL
@@ -5967,7 +5965,6 @@ namespace pugi
 		// get extra buffer element (we'll store the document fragment buffer there so that we can deallocate it later)
 		impl::xml_memory_page* page = nullptr;
 		impl::xml_extra_buffer* extra = static_cast<impl::xml_extra_buffer*>(doc->allocate_memory(sizeof(impl::xml_extra_buffer), page));
-		(void)page;
 
 		if (!extra) return impl::make_parse_result(status_out_of_memory);
 
