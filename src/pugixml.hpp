@@ -271,7 +271,7 @@ namespace pugi
 	{
 	public:
 		// Construct writer from a FILE* object; void* is used to avoid header dependencies on stdio
-		xml_writer_file(void* file);
+		xml_writer_file(void*);
 
 		virtual void write(const void* data, size_t size);
 
@@ -466,47 +466,47 @@ namespace pugi
 		xml_text text() const;
 
 		// Get child, attribute or next/previous sibling with the specified name
-		xml_node child(const char_t* name) const;
-		xml_attribute attribute(const char_t* name) const;
-		xml_node next_sibling(const char_t* name) const;
-		xml_node previous_sibling(const char_t* name) const;
+		xml_node child(const char_t*) const;
+		xml_attribute attribute(const char_t*) const;
+		xml_node next_sibling(const char_t*) const;
+		xml_node previous_sibling(const char_t*) const;
 
 		// Get attribute, starting the search from a hint (and updating hint so that searching for a sequence of attributes is fast)
-		xml_attribute attribute(const char_t* name, xml_attribute& hint) const;
+		xml_attribute attribute(const char_t*, xml_attribute&) const;
 
 		// Get child value of current node; that is, value of the first child node of type PCDATA/CDATA
 		const char_t* child_value() const;
 
 		// Get child value of child with specified name. Equivalent to child(name).child_value().
-		const char_t* child_value(const char_t* name) const;
+		const char_t* child_value(const char_t*) const;
 
 		// Set node name/value (returns false if node is empty, there is not enough memory, or node can not have name/value)
 		bool set_name(const char_t* rhs);
 		bool set_value(const char_t* rhs);
 
 		// Add attribute with specified name. Returns added attribute, or empty attribute on errors.
-		xml_attribute append_attribute(const char_t* name);
-		xml_attribute prepend_attribute(const char_t* name);
-		xml_attribute insert_attribute_after(const char_t* name, const xml_attribute& attr);
-		xml_attribute insert_attribute_before(const char_t* name, const xml_attribute& attr);
+		xml_attribute append_attribute(const char_t*);
+		xml_attribute prepend_attribute(const char_t*);
+		xml_attribute insert_attribute_after(const char_t*, const xml_attribute&);
+		xml_attribute insert_attribute_before(const char_t*, const xml_attribute&);
 
 		// Add a copy of the specified attribute. Returns added attribute, or empty attribute on errors.
-		xml_attribute append_copy(const xml_attribute& proto);
-		xml_attribute prepend_copy(const xml_attribute& proto);
+		xml_attribute append_copy(const xml_attribute&);
+		xml_attribute prepend_copy(const xml_attribute&);
 		xml_attribute insert_copy_after(const xml_attribute& proto, const xml_attribute& attr);
 		xml_attribute insert_copy_before(const xml_attribute& proto, const xml_attribute& attr);
 
 		// Add child node with specified type. Returns added node, or empty node on errors.
-		xml_node append_child(xml_node_type type = node_element);
-		xml_node prepend_child(xml_node_type type = node_element);
-		xml_node insert_child_after(xml_node_type type, const xml_node& node);
-		xml_node insert_child_before(xml_node_type type, const xml_node& node);
+		xml_node append_child(xml_node_type type_ = node_element);
+		xml_node prepend_child(xml_node_type type_ = node_element);
+		xml_node insert_child_after(xml_node_type, const xml_node&);
+		xml_node insert_child_before(xml_node_type, const xml_node&);
 
 		// Add child element with specified name. Returns added node, or empty node on errors.
-		xml_node append_child(const char_t* name);
-		xml_node prepend_child(const char_t* name);
-		xml_node insert_child_after(const char_t* name, const xml_node& node);
-		xml_node insert_child_before(const char_t* name, const xml_node& node);
+		xml_node append_child(const char_t*);
+		xml_node prepend_child(const char_t*);
+		xml_node insert_child_after(const char_t*, const xml_node&);
+		xml_node insert_child_before(const char_t*, const xml_node&);
 
 		// Add a copy of the specified node as a child. Returns added node, or empty node on errors.
 		xml_node append_copy(const xml_node& proto);
@@ -521,12 +521,12 @@ namespace pugi
 		xml_node insert_move_before(const xml_node& moved, const xml_node& node);
 
 		// Remove specified attribute
-		bool remove_attribute(const xml_attribute& a);
-		bool remove_attribute(const char_t* name);
+		bool remove_attribute(const xml_attribute&);
+		bool remove_attribute(const char_t*);
 
 		// Remove specified child
-		bool remove_child(const xml_node& n);
-		bool remove_child(const char_t* name);
+		bool remove_child(const xml_node&);
+		bool remove_child(const char_t*);
 
 		// Parses buffer as an XML document fragment and appends all nodes as children of the current node.
 		// Copies/converts the buffer, so it may be deleted or changed after the function returns.
@@ -582,7 +582,7 @@ namespace pugi
 		}
 
 		// Find child node by attribute name/value
-		xml_node find_child_by_attribute(const char_t* name, const char_t* attr_name, const char_t* attr_value) const;
+		xml_node find_child_by_attribute(const char_t* name_, const char_t* attr_name, const char_t* attr_value) const;
 		xml_node find_child_by_attribute(const char_t* attr_name, const char_t* attr_value) const;
 
 	#ifndef PUGIXML_NO_STL
@@ -591,7 +591,7 @@ namespace pugi
 	#endif
 
 		// Search for a node by path consisting of node names and . or .. elements.
-		xml_node first_element_by_path(const char_t* path, char_t delimiter = '/') const;
+		xml_node first_element_by_path(const char_t*, char_t delimiter = '/') const;
 
 		// Recursively traverse subtree with xml_tree_walker
 		bool traverse(xml_tree_walker& walker);
@@ -616,8 +616,8 @@ namespace pugi
 
 	#ifndef PUGIXML_NO_STL
 		// Print subtree to stream
-		void print(std::basic_ostream<char, std::char_traits<char> >& os, const char_t* indent = PUGIXML_TEXT("\t"), unsigned int flags = format_default, xml_encoding encoding = encoding_auto, unsigned int depth = 0) const;
-		void print(std::basic_ostream<wchar_t, std::char_traits<wchar_t> >& os, const char_t* indent = PUGIXML_TEXT("\t"), unsigned int flags = format_default, unsigned int depth = 0) const;
+		void print(std::basic_ostream<char, std::char_traits<char> >& stream, const char_t* indent = PUGIXML_TEXT("\t"), unsigned int flags = format_default, xml_encoding encoding = encoding_auto, unsigned int depth = 0) const;
+		void print(std::basic_ostream<wchar_t, std::char_traits<wchar_t> >& stream, const char_t* indent = PUGIXML_TEXT("\t"), unsigned int flags = format_default, unsigned int depth = 0) const;
 	#endif
 
 		// Child nodes iterators
@@ -634,7 +634,7 @@ namespace pugi
 
 		// Range-based for support
 		xml_object_range<xml_node_iterator> children() const;
-		xml_object_range<xml_named_node_iterator> children(const char_t* name) const;
+		xml_object_range<xml_named_node_iterator> children(const char_t*) const;
 		xml_object_range<xml_attribute_iterator> attributes() const;
 
 		// Get node offset in parsed file/string (in char_t units) for debugging purposes
@@ -981,8 +981,8 @@ namespace pugi
 		xml_parse_result load_string(const char_t* contents, unsigned int options = parse_default);
 
 		// Load document from file
-		xml_parse_result load_file(const char* path, unsigned int options = parse_default, xml_encoding encoding = encoding_auto);
-		xml_parse_result load_file(const wchar_t* path, unsigned int options = parse_default, xml_encoding encoding = encoding_auto);
+		xml_parse_result load_file(const char*, unsigned int options = parse_default, xml_encoding encoding = encoding_auto);
+		xml_parse_result load_file(const wchar_t*, unsigned int options = parse_default, xml_encoding encoding = encoding_auto);
 
 		// Load document from buffer. Copies/converts the buffer, so it may be deleted or changed after the function returns.
 		xml_parse_result load_buffer(const void* contents, size_t size, unsigned int options = parse_default, xml_encoding encoding = encoding_auto);
@@ -1005,8 +1005,8 @@ namespace pugi
 	#endif
 
 		// Save XML to file
-		bool save_file(const char* path, const char_t* indent = PUGIXML_TEXT("\t"), unsigned int flags = format_default, xml_encoding encoding = encoding_auto) const;
-		bool save_file(const wchar_t* path, const char_t* indent = PUGIXML_TEXT("\t"), unsigned int flags = format_default, xml_encoding encoding = encoding_auto) const;
+		bool save_file(const char*, const char_t* indent = PUGIXML_TEXT("\t"), unsigned int flags = format_default, xml_encoding encoding = encoding_auto) const;
+		bool save_file(const wchar_t*, const char_t* indent = PUGIXML_TEXT("\t"), unsigned int flags = format_default, xml_encoding encoding = encoding_auto) const;
 
 		// Get document element
 		xml_node document_element() const;
@@ -1051,7 +1051,7 @@ namespace pugi
 		xpath_value_type _type;
 		xpath_variable* _next;
 
-		xpath_variable(xpath_value_type type);
+		xpath_variable(xpath_value_type);
 
 		// Non-copyable semantics
 		xpath_variable(const xpath_variable&);
@@ -1203,7 +1203,7 @@ namespace pugi
 
 	public:
 		// Construct exception from parse result
-		explicit xpath_exception(const xpath_parse_result& result);
+		explicit xpath_exception(const xpath_parse_result&);
 
 		// Get error message
 		virtual const char* what() const throw();
@@ -1227,8 +1227,8 @@ namespace pugi
 		xpath_node();
 
 		// Construct XPath node from XML node/attribute
-		xpath_node(const xml_node& node);
-		xpath_node(const xml_attribute& attribute, const xml_node& parent);
+		xpath_node(const xml_node&);
+		xpath_node(const xml_attribute&, const xml_node&);
 
 		// Get node/attribute, if any
 		xml_node node() const;
@@ -1276,7 +1276,7 @@ namespace pugi
 		xpath_node_set();
 
 		// Constructs a set from iterator range; data is not checked for duplicates and is not sorted according to provided type, so be careful
-		xpath_node_set(const_iterator begin, const_iterator end, type_t type = type_unsorted);
+		xpath_node_set(const_iterator, const_iterator, type_t type_ = type_unsorted);
 
 		// Destructor
 		~xpath_node_set();
@@ -1321,7 +1321,7 @@ namespace pugi
 		xpath_node* _begin;
 		xpath_node* _end;
 
-		void _assign(const_iterator begin, const_iterator end, type_t type);
+		void _assign(const_iterator, const_iterator, type_t);
 		void _move(xpath_node_set& rhs);
 	};
 #endif
