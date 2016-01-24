@@ -6521,7 +6521,12 @@ namespace pugi
 	{
 	}
 
+#if __cplusplus >= 201103
+	PUGI__FN xml_attribute_iterator::xml_attribute_iterator(xml_attribute attr, xml_node parent): _wrap(std::move(attr)), _parent(std::move(parent))
+#else
 	PUGI__FN xml_attribute_iterator::xml_attribute_iterator(const xml_attribute& attr, const xml_node& parent): _wrap(attr), _parent(parent)
+
+#endif
 	{
 	}
 
@@ -8701,7 +8706,11 @@ PUGI__NS_BEGIN
 		xpath_node n;
 		size_t position, size;
 
+#if __cplusplus >= 201103
+		xpath_context(xpath_node n_, size_t position_, size_t size_): n(std::move(n_)), position(position_), size(size_)
+#else
 		xpath_context(const xpath_node& n_, size_t position_, size_t size_): n(n_), position(position_), size(size_)
+#endif
 		{
 		}
 	};
@@ -11682,7 +11691,11 @@ PUGI__NS_END
 namespace pugi
 {
 #ifndef PUGIXML_NO_EXCEPTIONS
+#if __cplusplus >= 201103
+	PUGI__FN xpath_exception::xpath_exception(xpath_parse_result result_): _result(std::move(result_))
+#else
 	PUGI__FN xpath_exception::xpath_exception(const xpath_parse_result& result_): _result(result_)
+#endif
 	{
 		assert(_result.error);
 	}
@@ -11702,7 +11715,11 @@ namespace pugi
 	{
 	}
 
+#if __cplusplus >= 201103
+	PUGI__FN xpath_node::xpath_node(xml_node node_): _node(std::move(node_))
+#else
 	PUGI__FN xpath_node::xpath_node(const xml_node& node_): _node(node_)
+#endif
 	{
 	}
 

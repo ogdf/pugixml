@@ -810,7 +810,11 @@ namespace pugi
 		xml_attribute_iterator();
 
 		// Construct an iterator which points to the specified attribute
+#if __cplusplus >= 201103
+		xml_attribute_iterator(xml_attribute attr, xml_node parent);
+#else
 		xml_attribute_iterator(const xml_attribute& attr, const xml_node& parent);
+#endif
 
 		// Iterator operators
 		bool operator==(const xml_attribute_iterator& rhs) const;
@@ -1207,7 +1211,11 @@ namespace pugi
 
 	public:
 		// Construct exception from parse result
+#if __cplusplus >= 201103
+		explicit xpath_exception(xpath_parse_result);
+#else
 		explicit xpath_exception(const xpath_parse_result&);
+#endif
 
 		// Get error message
 		virtual const char* what() const throw();
@@ -1231,7 +1239,11 @@ namespace pugi
 		xpath_node();
 
 		// Construct XPath node from XML node/attribute
+#if __cplusplus >= 201103
+		xpath_node(xml_node);
+#else
 		xpath_node(const xml_node&);
+#endif
 		xpath_node(const xml_attribute&, const xml_node&);
 
 		// Get node/attribute, if any
